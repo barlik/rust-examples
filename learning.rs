@@ -407,7 +407,54 @@ fn associated() {
 fn generics() {
     let x: Option<i32> = Some(5);
     let y: Option<f64> = Some(5.0f64);
-    // println!("{}", x);
+    println!("{:?}", x);
+    //
+    fn takes_anything<T>(x: T) {
+    }
+    fn takes_two_same_things<T>(x: T, y: T) {
+        //
+    }
+
+    fn takes_two_things<T, U>(x: T, y: U) {
+    }
+
+    // generic structs
+    struct Point<T> {
+        x: T,
+        y: T,
+    }
+    let int_origin = Point { x: 0, y: 0 };
+    let float_origin = Point { x: 0.0, y: 0.0 };
+
+    impl<T> Point<T> {
+        fn swap(&mut self) {
+            std::mem::swap(&mut self.x, &mut self.y);
+        }
+    }
+}
+
+fn traits() {
+    struct Circle {
+        x: f64,
+        y: f64,
+        radius: f64,
+    }
+
+    trait HasArea {
+        fn area(&self) -> f64;
+
+        fn is_larger(&self, &Self) -> bool;
+    }
+
+    impl HasArea for Circle {
+        fn area(&self) -> f64 {
+            std::f64::consts::PI * (self.radius * self.radius)
+        }
+
+        fn is_larger(&self, other: &Self) -> bool {
+            self.area() > other.area()
+        }
+    }
 }
 
 pub fn main() {
