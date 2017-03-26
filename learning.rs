@@ -457,6 +457,30 @@ fn traits() {
     }
 }
 
+fn drops() {
+    struct HasDrop;
+
+    impl Drop for HasDrop {
+        fn drop(&mut self) {
+            println!("Dropping!");
+        }
+    }
+
+    {
+        let x = HasDrop;
+
+        // Do stuff.
+
+    } // `x` goes out of scope here.
+}
+
+fn iflet() {
+    let mut v = vec![1, 3, 5, 7, 11];
+    while let Some(x) = v.pop() {
+        println!("{}", x);
+    }
+}
+
 pub fn main() {
     // misc();
     // types();
@@ -472,6 +496,8 @@ pub fn main() {
     // matches();
     // patterns();
     // associated();
-    generics();
+    // generics();
+    // drops();
+    iflet();
     // greet_user("Phil");
 }
